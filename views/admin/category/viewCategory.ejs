@@ -1,4 +1,4 @@
-<%- include('partials/header.ejs') %>
+<%- include('../../partials/header.ejs') %>
 
 <body id="page-top">
 
@@ -6,7 +6,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <%- include('partials/sidebar.ejs') %>
+    <%- include('../../partials/sidebar.ejs') %>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -16,14 +16,16 @@
       <div id="content">
 
         <!-- Topbar -->
-        <%- include('partials/navbar.ejs') %>
+        <%- include('../../partials/navbar.ejs') %>
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
-          <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+          <%- include('../../partials/message.ejs') %>
+        <!-- Page Heading -->
+          <h1 class="h3 mb-4 text-gray-800">Category</h1>
+          <!-- End Heading -->
+          <%- include('tableCategory.ejs') %>
 
         </div>
         <!-- /.container-fluid -->
@@ -32,7 +34,7 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <%- include('partials/footer.ejs') %>
+      <%- include('../../partials/footer.ejs') %>
       <!-- End of Footer -->
 
     </div>
@@ -64,8 +66,20 @@
       </div>
     </div>
   </div>
+  <%- include('addModal.ejs') %>
+  <%- include('editModal.ejs') %>
+  <%- include('../../partials/js.ejs') %>
 
-  <%- include('partials/js.ejs') %>
+  <script>
+    $('#dataTable').on('click', '.button-update', function(){
+      let id= $(this).data('id');
+      let name = $(this).data('name')
+      console.log( id + name)
+      $('#editModal').modal('show');
+      $('.id').val(id);
+      $('.name').val(name);
+    })
+  </script>
 </body>
 
 

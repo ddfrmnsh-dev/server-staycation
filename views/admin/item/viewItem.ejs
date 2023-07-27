@@ -1,4 +1,4 @@
-<%- include('partials/header.ejs') %>
+<%- include('../../partials/header.ejs') %>
 
 <body id="page-top">
 
@@ -6,7 +6,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <%- include('partials/sidebar.ejs') %>
+    <%- include('../../partials/sidebar.ejs') %>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -16,15 +16,28 @@
       <div id="content">
 
         <!-- Topbar -->
-        <%- include('partials/navbar.ejs') %>
+        <%- include('../../partials/navbar.ejs') %>
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
+          <%- include('../../partials/message.ejs') %>
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
-
+          <h1 class="h3 mb-4 text-gray-800">Item</h1>
+          <!-- End Heading -->
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#show-item" role="tab" aria-controls="home" aria-selected="true">Show Item</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#add-item" role="tab" aria-controls="profile" aria-selected="false">Add Item</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <%- include('showTableItem.ejs') %>
+            <%- include('addItem.ejs') %>
+          </div>
         </div>
         <!-- /.container-fluid -->
 
@@ -32,7 +45,7 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <%- include('partials/footer.ejs') %>
+      <%- include('../../partials/footer.ejs') %>
       <!-- End of Footer -->
 
     </div>
@@ -65,7 +78,10 @@
     </div>
   </div>
 
-  <%- include('partials/js.ejs') %>
+  <%- include('../../partials/js.ejs') %>
+  <script>
+    CKEDITOR.replace( 'about' );
+  </script>
 </body>
 
 
