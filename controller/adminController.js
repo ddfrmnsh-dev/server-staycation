@@ -150,6 +150,15 @@ module.exports = {
   },
   viewItem: async (req, res) => {
     try {
+      const item = await Item.find()
+        .populate({
+          path: "imageId",
+          select: "id imageUrl",
+        })
+        .populate({
+          path: "categoryId",
+          selectL: "id name",
+        });
       const category = await Category.find();
       const alertMessage = req.flash("alertMessage");
       const alertStatus = req.flash("alertStatus");
@@ -158,6 +167,8 @@ module.exports = {
         title: "Staycation | Item",
         category,
         alert,
+        item,
+        action: "view",
       });
     } catch (e) {
       req.flash("alertMessage", `${e.message}`);
@@ -178,7 +189,45 @@ module.exports = {
           city,
         };
         const item = await Item.create(newItem);
+        category.itemId.push({ _id: item._id });
+        await category.save();
+
+        for (let i = 0; i < req.files.length; i++) {
+          const imageSave = await Image.create({
+            imageUrl: `images/${req.files[i].filename}`,
+          });
+
+          item.imageId.push({ _id: imageSave._id });
+          await item.save();
+        }
+        req.flash("alertMessage", "Success Add Item");
+        req.flash("alertStatus", "success");
+        res.redirect("/admin/item");
       }
+    } catch (e) {
+      req.flash("alertMessage", `${e.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/admin/item");
+    }
+  },
+  showImageItem: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const item = await Item.findOne({ _id: id }).populate({
+        path: "imageId",
+        select: "id imageUrl",
+      });
+      console.log("DATA IMG", item.imageId);
+      const category = await Category.find();
+      const alertMessage = req.flash("alertMessage");
+      const alertStatus = req.flash("alertStatus");
+      const alert = { message: alertMessage, status: alertStatus };
+      res.render("admin/item/viewItem", {
+        title: "Staycation | Show Image Item",
+        alert,
+        item,
+        action: "show image",
+      });
     } catch (e) {
       req.flash("alertMessage", `${e.message}`);
       req.flash("alertStatus", "danger");

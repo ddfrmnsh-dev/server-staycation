@@ -26,18 +26,29 @@
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800">Item</h1>
           <!-- End Heading -->
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#show-item" role="tab" aria-controls="home" aria-selected="true">Show Item</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#add-item" role="tab" aria-controls="profile" aria-selected="false">Add Item</a>
-            </li>
-          </ul>
-          <div class="tab-content" id="myTabContent">
-            <%- include('showTableItem.ejs') %>
-            <%- include('addItem.ejs') %>
-          </div>
+          <% if(action === "view") {%>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#show-item" role="tab" aria-controls="home" aria-selected="true">Show Item</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#add-item" role="tab" aria-controls="profile" aria-selected="false">Add Item</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <%- include('showTableItem.ejs') %>
+              <%- include('addItem.ejs') %>
+            </div>
+          <% } else if(action == 'show image') {%>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#show-image" role="tab" aria-controls="home" aria-selected="true">Show Image</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <%- include('showImageItem.ejs') %>
+            </div>
+          <% } %>
         </div>
         <!-- /.container-fluid -->
 
@@ -82,6 +93,20 @@
   <script>
     CKEDITOR.replace( 'about' );
   </script>
+  <script>
+    $('#dataTable').on('click', '.button-update', function(){
+      let id= $(this).data('id');
+      let title = $(this).data('title');
+      let price = $(this).data('price');
+      let country = $(this).data('country');
+      let city = $(this).data('city');
+      console.log( id + name)
+      $('#editModal').modal('show');
+      $('.id').val(id);
+      $('.title').val(title);
+      $('.price').val(price);
+      $('.country').val(country);
+      $('.city').val(city);
+    })
+  </script>
 </body>
-
-

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const imageSchema = new mongoose.Schema({
-  imagUrl: {
+  imageUrl: {
     type: String,
     required: true,
   },
